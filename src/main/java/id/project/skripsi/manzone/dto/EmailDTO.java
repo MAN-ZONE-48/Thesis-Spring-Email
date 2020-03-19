@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
 
-public class Feedback {
+public class EmailDTO {
 
     @NotNull
     @Email

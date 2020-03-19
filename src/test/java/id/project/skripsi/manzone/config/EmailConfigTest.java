@@ -1,13 +1,17 @@
 package id.project.skripsi.manzone.config;
 
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Profile("test")
+@Configuration
 @Component
-@PropertySource("classpath:application.properties")
-public class EmailConfig {
-
+public class EmailConfigTest {
 
     @Value("${spring.mail.host}")
     private String host;
@@ -25,31 +29,22 @@ public class EmailConfig {
         return host;
     }
 
-    public void setHost(String host) {
-        this.host = host;
-    }
-
     public int getPort() {
         return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Bean
+    @Primary
+    public EmailConfig emailConfig(){
+        return Mockito.mock(EmailConfig.class);
     }
+
 }
