@@ -1,6 +1,6 @@
 package id.project.skripsi.manzone.controller;
 
-import com.java.auth.dto.Response;
+import com.java.common.lib.dto.Response;
 import id.project.skripsi.manzone.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-
-import static com.java.auth.constant.ResponseConstant.OK;
-
+import static com.java.common.lib.constant.ResponseConstant.*;
 
 @RestController
 @RequestMapping("/v1")

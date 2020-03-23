@@ -43,7 +43,6 @@ public class EmailServiceImpl implements EmailService {
             mailMessage.setSubject("Verify Your Account Now!");
             mailMessage.setText("Your verification code is " + otpService.createOtpCode() + " \n" + "If this verification code doesn't work, please contact our admin at admin@gmail.com");
 
-
             //send email with mail sender
             mailSender.send(mailMessage);
             return "Your Email has Been Sent. Please Check Your Mailbox To Complete Your Registration Process!";
