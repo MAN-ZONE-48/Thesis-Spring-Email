@@ -2,6 +2,7 @@ package id.project.skripsi.manzone.service.impl;
 
 import com.java.common.lib.domain.UserData;
 import id.project.skripsi.manzone.config.EmailConfig;
+import id.project.skripsi.manzone.constant.AppConstant;
 import id.project.skripsi.manzone.dao.UserRepository;
 import id.project.skripsi.manzone.service.EmailService;
 import id.project.skripsi.manzone.service.GeneratePasswordService;
@@ -71,12 +72,16 @@ public class EmailServiceImpl implements EmailService {
         initMailSenderConfig(mailSender);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("sys_admin@gmail.com");
-        mailMessage.setTo(currentUserData.getUserEmail());
-        mailMessage.setSubject("Reset Your Password");
-        mailMessage.setText("Your new password is " + passwordService.generatePassword() + "\n" + "This code is valid for 24 hours. So hurry up!");
+        setEmailProperties(mailMessage, currentUserData);
         mailSender.send(mailMessage);
 
         return "Your Request Has Been Sent. Please Check Your Mailbox to Reset Your Password!";
+    }
+
+    private void setEmailProperties(SimpleMailMessage mailMessage, UserData currentUserData) {
+        mailMessage.setFrom("sys_admin@gmail.com");
+        mailMessage.setTo(currentUserData.getUserEmail());
+        mailMessage.setSubject("Reset Your Password");
+        mailMessage.setText("Your new password is " + passwordService.generatePassword() + "\n" + AppConstant.REQUEST_PASSWORD_MESSAGE);
     }
 }
