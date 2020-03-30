@@ -12,7 +12,7 @@ public class EmailConfig {
     @Value("${spring.mail.host}")
     private String host;
 
-    @Value("#{T(java.lang.Integer).parseInt('${spring.mail.port}')}")
+    @Value("${spring.mail.port}")
     private int port;
 
     @Value("${spring.mail.username}")

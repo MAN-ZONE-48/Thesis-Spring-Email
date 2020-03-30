@@ -2,6 +2,7 @@ package id.project.skripsi.manzone.service.impl;
 
 import id.project.skripsi.manzone.config.EmailConfig;
 import id.project.skripsi.manzone.service.EmailService;
+import id.project.skripsi.manzone.service.GeneratePasswordService;
 import id.project.skripsi.manzone.service.OtpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +19,13 @@ public class EmailServiceImpl implements EmailService {
 
     final EmailConfig emailConfig;
     final OtpService otpService;
+    final GeneratePasswordService passwordService;
 
     @Autowired
-    public EmailServiceImpl(EmailConfig emailConfig, OtpService otpService) {
+    public EmailServiceImpl(EmailConfig emailConfig, OtpService otpService, GeneratePasswordService passwordService) {
         this.emailConfig = emailConfig;
         this.otpService = otpService;
+        this.passwordService = passwordService;
     }
 
     @Override
@@ -31,10 +34,7 @@ public class EmailServiceImpl implements EmailService {
         //create mail sender
         try {
             JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-            mailSender.setPort(this.emailConfig.getPort());
-            mailSender.setHost(this.emailConfig.getHost());
-            mailSender.setUsername(this.emailConfig.getUsername());
-            mailSender.setPassword(this.emailConfig.getPassword());
+            initMailSenderConfig(mailSender);
 
             //create email instance
             SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -50,5 +50,27 @@ public class EmailServiceImpl implements EmailService {
             LOGGER.info("there is an error while sending an email: {}", e.getMessage());
             return null;
         }
+    }
+
+    private void initMailSenderConfig(JavaMailSenderImpl mailSender){
+        mailSender.setPort(this.emailConfig.getPort());
+        mailSender.setHost(this.emailConfig.getHost());
+        mailSender.setUsername(this.emailConfig.getUsername());
+        mailSender.setPassword(this.emailConfig.getPassword());
+    }
+
+    @Override
+    public String getRandomPassword() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        initMailSenderConfig(mailSender);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom("admin@gmail.com");
+        mailMessage.setTo("maderajaadi@gmail.com");
+        mailMessage.setSubject("Reset Your Password");
+        mailMessage.setText("Your new password is " + passwordService.generatePassword() + "\n" + "This code is valid for 24 hours. So hurry up!");
+        mailSender.send(mailMessage);
+
+        return "Yor Request Has Been Sent. Please Check Your Mailbox to Reset Your Password!";
     }
 }
