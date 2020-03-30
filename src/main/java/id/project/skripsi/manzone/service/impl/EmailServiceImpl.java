@@ -43,7 +43,7 @@ public class EmailServiceImpl implements EmailService {
             //create email instance
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setFrom("admin@gmail.com");
-            mailMessage.setTo("maderajaadi@gmail.com");
+            mailMessage.setTo("testing@gmail.com");
             mailMessage.setSubject("Verify Your Account Now!");
             mailMessage.setText("Your verification code is " + otpService.createOtpCode() + " \n" + "If this verification code doesn't work, please contact our admin at admin@gmail.com");
 
