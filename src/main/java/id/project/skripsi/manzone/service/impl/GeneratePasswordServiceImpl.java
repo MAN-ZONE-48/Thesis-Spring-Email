@@ -16,7 +16,7 @@ public class GeneratePasswordServiceImpl implements GeneratePasswordService {
 
         Random random = new Random();
         String generatedString = random.ints(minLimit,maxLimit + 1)
-                .limit(length)
+                .limit(length + 1)
                 .filter(i -> (i <= 90 || i >= 97))
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();

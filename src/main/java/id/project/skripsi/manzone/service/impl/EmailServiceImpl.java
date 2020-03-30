@@ -71,6 +71,6 @@ public class EmailServiceImpl implements EmailService {
         mailMessage.setText("Your new password is " + passwordService.generatePassword() + "\n" + "This code is valid for 24 hours. So hurry up!");
         mailSender.send(mailMessage);
 
-        return "Yor Request Has Been Sent. Please Check Your Mailbox to Reset Your Password!";
+        return "Your Request Has Been Sent. Please Check Your Mailbox to Reset Your Password!";
     }
 }
