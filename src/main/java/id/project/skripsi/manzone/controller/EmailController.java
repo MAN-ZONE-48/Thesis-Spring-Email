@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/email")
 public class EmailController {
 
     final EmailService emailService;
