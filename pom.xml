@@ -120,7 +120,7 @@
 
         <!-- Import My Own Library -->
         <dependency>
-            <groupId>com.java.auth</groupId>
+            <groupId>com.java.common.lib</groupId>
             <artifactId>ThesisAuthenticationService</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
