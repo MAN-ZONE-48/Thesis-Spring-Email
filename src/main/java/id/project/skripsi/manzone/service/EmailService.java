@@ -8,4 +8,5 @@ public interface EmailService {
     String getEmail();
     String getRandomPassword(String userEmail);
 
+
 }
