@@ -1,6 +1,8 @@
 package id.project.skripsi.manzone.service.impl;
 
+import com.java.common.lib.domain.UserData;
 import id.project.skripsi.manzone.config.EmailConfig;
+import id.project.skripsi.manzone.dao.UserRepository;
 import id.project.skripsi.manzone.service.EmailService;
 import id.project.skripsi.manzone.service.GeneratePasswordService;
 import id.project.skripsi.manzone.service.OtpService;
@@ -20,18 +22,20 @@ public class EmailServiceImpl implements EmailService {
     final EmailConfig emailConfig;
     final OtpService otpService;
     final GeneratePasswordService passwordService;
+    final UserRepository userRepository;
+
 
     @Autowired
-    public EmailServiceImpl(EmailConfig emailConfig, OtpService otpService, GeneratePasswordService passwordService) {
+    public EmailServiceImpl(EmailConfig emailConfig, OtpService otpService, GeneratePasswordService passwordService, UserRepository userRepository) {
         this.emailConfig = emailConfig;
         this.otpService = otpService;
         this.passwordService = passwordService;
+        this.userRepository = userRepository;
     }
 
     @Override
     public String getEmail() {
 
-        //create mail sender
         try {
             JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
             initMailSenderConfig(mailSender);
@@ -60,13 +64,15 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public String getRandomPassword() {
+    public String getRandomPassword(String userEmail) {
+        UserData currentUserData = userRepository.findUserDataByUserEmail(userEmail);
+
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         initMailSenderConfig(mailSender);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("admin@gmail.com");
-        mailMessage.setTo("maderajaadi@gmail.com");
+        mailMessage.setFrom("sys_admin@gmail.com");
+        mailMessage.setTo(currentUserData.getUserEmail());
         mailMessage.setSubject("Reset Your Password");
         mailMessage.setText("Your new password is " + passwordService.generatePassword() + "\n" + "This code is valid for 24 hours. So hurry up!");
         mailSender.send(mailMessage);

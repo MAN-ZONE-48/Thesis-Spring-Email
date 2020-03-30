@@ -1,31 +1,14 @@
 package id.project.skripsi.manzone.dto;
 
-import org.hibernate.validator.constraints.Email;
-
-import javax.validation.constraints.NotNull;
-
 public class EmailDTO {
 
-    @NotNull
-    @Email
-    private String email;
+    private String userEmail;
 
-    @NotNull
-    private String feedback;
-
-    public String getEmail() {
-        return email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFeedback() {
-        return feedback;
-    }
-
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }
